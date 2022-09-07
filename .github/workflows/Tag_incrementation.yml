@@ -17,9 +17,9 @@ jobs:
         run: |
           export GITHUB_TAG=$(git describe --tags)
           echo '$GITHUB_TAG'
-          export MAJOR_VERSION=$(GITHUB_TAG | grep -e '[^|v]*.')
+          export MAJOR_VERSION=$($GITHUB_TAG | grep -e '[^|v]*.')
           echo '$MAJOR_VERSION'
-          export MINOR_VERSION=$(GITHUB_TAG | grep -e '.*.')
+          export MINOR_VERSION=$($GITHUB_TAG | grep -e '.*.')
           echo '$MINOR_VERSION'
-          export FIX=$(GITHUB_TAG | grep -e '.*-')
+          export FIX=$($GITHUB_TAG | grep -e '.*-')
           echo '$FIX'
