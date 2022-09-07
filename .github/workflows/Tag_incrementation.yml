@@ -16,7 +16,7 @@ jobs:
 
       - name: get latest tag
         run: |
-          echo "git describe --tags"
+          git describe --tags
           echo "GITHUB_TAG=$(git describe --tags)" >>  $GITHUB_ENV
 
       - name: Bump release version
