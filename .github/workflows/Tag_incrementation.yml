@@ -3,9 +3,6 @@ name: Tag incrementation
 on:
   push:
     branches: [ "main" ]
-    
-  workflow_dispatch:
-
 
 jobs:
   build:
@@ -18,16 +15,8 @@ jobs:
 
       - name: get latest tag
         run: |
-          git tag
-          git describe --tags
-          echo "GITHUB_TAG=$(git describe --tags)" >>  $GITHUB_ENV
-
-      - name: Bump release version
-        id: bump_version
-        uses: christian-draeger/increment-semantic-version@1.0.2
-        with:
-          current-version: ${{ env.GITHUB_TAG}}
-          version-fragment: 'feature'
-      - name: Check version
-        run: echo ${{ steps.bump_version.outputs.next-version }}
-        # will print 2.12.0.
+          #echo "GITHUB_TAG=$(git describe --tags)" >>  $GITHUB_ENV
+          GITHUB_TAG=$(git describe --tags)
+          MAJOR_VERSION=$(GITHUB_TAG | grep -e '[^|v]*.')
+          MINOR_VERSION=$(GITHUB_TAG | grep -e '.*.')
+          FIX=$(GITHUB_TAG | grep -e '.*-')
