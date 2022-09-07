@@ -1,0 +1,32 @@
+name: Tag incrementation
+
+on:
+  push:
+    branches: [ "main" ]
+    
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+
+      - name: get latest tag
+        run: |
+          git describe --tags
+          echo "GITHUB_TAG=$(git describe --tags)" >>  $GITHUB_ENV
+
+      - name: Bump release version
+        id: bump_version
+        uses: christian-draeger/increment-semantic-version@1.0.2
+        with:
+          current-version: ${{ env.GITHUB_TAG}}
+          version-fragment: 'feature'
+      - name: Check version
+        run: echo ${{ steps.bump_version.outputs.next-version }}
+        # will print 2.12.0.
