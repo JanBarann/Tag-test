@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 int main(){
-    x = 0;
+    int x = 0;
+    int y = 1;
     return 0;
 }
