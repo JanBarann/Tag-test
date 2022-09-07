@@ -18,6 +18,7 @@ jobs:
 
       - name: get latest tag
         run: |
+          git tag
           git describe --tags
           echo "GITHUB_TAG=$(git describe --tags)" >>  $GITHUB_ENV
 
