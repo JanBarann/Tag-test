@@ -15,11 +15,11 @@ jobs:
 
       - name: get latest tag
         run: |
-          $GITHUB_TAG=$(git describe --tags)
+          export GITHUB_TAG=$(git describe --tags)
           echo '$GITHUB_TAG'
-          $MAJOR_VERSION=$(GITHUB_TAG | grep -e '[^|v]*.')
+          export MAJOR_VERSION=$(GITHUB_TAG | grep -e '[^|v]*.')
           echo '$MAJOR_VERSION'
-          $MINOR_VERSION=$(GITHUB_TAG | grep -e '.*.')
+          export MINOR_VERSION=$(GITHUB_TAG | grep -e '.*.')
           echo '$MINOR_VERSION'
-          $FIX=$(GITHUB_TAG | grep -e '.*-')
+          export FIX=$(GITHUB_TAG | grep -e '.*-')
           echo '$FIX'
