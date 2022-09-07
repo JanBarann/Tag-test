@@ -15,8 +15,11 @@ jobs:
 
       - name: get latest tag
         run: |
-          #echo "GITHUB_TAG=$(git describe --tags)" >>  $GITHUB_ENV
           $GITHUB_TAG=$(git describe --tags)
+          echo '$GITHUB_TAG'
           $MAJOR_VERSION=$(GITHUB_TAG | grep -e '[^|v]*.')
+          echo '$MAJOR_VERSION'
           $MINOR_VERSION=$(GITHUB_TAG | grep -e '.*.')
+          echo '$MINOR_VERSION'
           $FIX=$(GITHUB_TAG | grep -e '.*-')
+          echo '$FIX'
