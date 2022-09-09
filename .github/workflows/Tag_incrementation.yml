@@ -46,9 +46,9 @@ jobs:
           
       - name: Deploy new tag
         run: |
-          git tag ${NEW_TAG}
-          git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/JanBarann/Tag-test.git" --follow-tags
-          git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/JanBarann/Tag-test.git" --tags
+          git tag -a ${NEW_TAG} -m "Version $NEW_TAG"
+          $git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/JanBarann/Tag-test.git" --follow-tags
+          $git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/JanBarann/Tag-test.git" --tags
           
           
           
