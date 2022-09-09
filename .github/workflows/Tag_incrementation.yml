@@ -20,7 +20,7 @@ jobs:
           #export GITHUB_TAG=$(git describe --abbrev=0 --tags)
           export GITHUB_TAG=$(git describe --tags)
           echo $GITHUB_TAG
-          export MAJOR_VERSION=$($GITHUB_TAG | grep -Eo '^[0-9]+')
+          export MAJOR_VERSION=$(echo $GITHUB_TAG | grep -Eo '^[0-9]+')
           echo $MAJOR_VERSION
           export MINOR_VERSION=$(echo $GITHUB_TAG | grep -Eo '\.[0-9]+\.' | grep -Eo '[0-9]+')
           echo $MINOR_VERSION
@@ -31,21 +31,24 @@ jobs:
         if: ${{ github.ref_name	== 'main' }}
         run: |
           MINOR_VERSION=$((MINOR_VERSION+1))
+          echo $MINOR_VERSION
           
       - name: Increase fix number
         if: ${{ github.ref_name	== 'develop' }}
         run: |
           FIX=$((FIX+1))
+          echo $FIX
           
       - name: Create new tag
         run: |
           export NEW_TAG="$MAJOR_VERSION.$MINOR_VERSION.$FIX"
+          echo $NEW_TAG
           
       - name: Deploy new tag
         run: |
           git tag ${NEW_TAG}
-          git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/$Tag-test.git" --follow-tags
-          git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/$Tag-test.git" --tags
+          git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/Tag-test.git" --follow-tags
+          git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/Tag-test.git" --tags
           
           
           
