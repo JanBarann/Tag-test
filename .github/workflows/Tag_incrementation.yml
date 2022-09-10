@@ -22,31 +22,39 @@ jobs:
           echo $GITHUB_TAG
           export MAJOR_VERSION=$(echo $GITHUB_TAG | grep -Eo '^[0-9]+')
           echo $MAJOR_VERSION
+          echo "major_version=$MAJOR_VERSION" >> $GITHUB_ENV
           export MINOR_VERSION=$(echo $GITHUB_TAG | grep -Eo '\.[0-9]+\.' | grep -Eo '[0-9]+')
           echo $MINOR_VERSION
+          echo "minor_version=$MINOR_VERSION" >> $GITHUB_ENV
           export FIX=$(echo $GITHUB_TAG | grep -Eo '\.[0-9]+(\-|$)' | grep -Eo '[0-9]+')
           echo $FIX
+          echo "fix=$FIX" >> $GITHUB_ENV
       
       - name: Increase PI release number
         if: ${{ github.ref_name	== 'main' }}
         run: |
+          export MINOR_VERSION=${{env.minor_version}}
           MINOR_VERSION=$((MINOR_VERSION+1))
           echo $MINOR_VERSION
+          echo "minor_version=$MINOR_VERSION" >> $GITHUB_ENV
           
       - name: Increase fix number
         if: ${{ github.ref_name	== 'develop' }}
         run: |
+          export FIX= ${{env.fix}}
           FIX=$((FIX+1))
           echo $FIX
+          echo "fix=$FIX" >> $GITHUB_ENV
           
       - name: Create new tag
         run: |
-          export NEW_TAG="$MAJOR_VERSION.$MINOR_VERSION.$FIX"
+          export NEW_TAG="$MAJOR_VERSION.${{env.minor_version}}.${{env.fix}}"
           echo $NEW_TAG
+          echo "new_tag=$NEW_TAG" >> $GITHUB_ENV
           
       - name: Deploy new tag
         run: |
-          git tag -a $NEW_TAG -m "Version $NEW_TAG"
+          git tag -a ${{env.new_tag}} -m "Version ${{env.new_tag}}"
           $git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/JanBarann/Tag-test.git" --follow-tags
           $git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/JanBarann/Tag-test.git" --tags
           
