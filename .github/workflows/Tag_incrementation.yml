@@ -14,6 +14,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: '0'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get latest tag
         run: |  
@@ -55,8 +56,10 @@ jobs:
       - name: Deploy new tag
         run: |
           git tag -a ${{env.new_tag}} -m "Version ${{env.new_tag}}"
-          $git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/JanBarann/Tag-test.git" --follow-tags
-          $git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/JanBarann/Tag-test.git" --tags
+          #$git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/JanBarann/Tag-test.git" --follow-tags
+          #$git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/JanBarann/Tag-test.git" --tags
+          git push --follow-tags
+          git push --tags
           
           
           
