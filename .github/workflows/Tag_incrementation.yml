@@ -5,6 +5,9 @@ on:
     branches:
       - main
       - beta
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
@@ -37,7 +40,7 @@ jobs:
           echo "fix=$FIX" >> $GITHUB_ENV
       
       - name: Increase PI release number
-        if: ${{ github.ref_name	== 'main' }}
+        if: ${{ github.head_ref	== 'main' }}
         run: |
           export MINOR_VERSION=${{env.minor_version}}
           MINOR_VERSION=$((MINOR_VERSION+1))
