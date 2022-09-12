@@ -43,7 +43,7 @@ jobs:
           MINOR_VERSION=$((MINOR_VERSION+1))
           echo $MINOR_VERSION
           echo "minor_version=$MINOR_VERSION" >> $GITHUB_ENV
-          echo "fix='0'" >> $GITHUB_ENV
+          echo "fix=0" >> $GITHUB_ENV
           
       - name: Increase fix number
         if: ${{ github.ref_name	== 'beta' }}
