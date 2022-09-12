@@ -43,7 +43,7 @@ jobs:
       - name: Increase fix number
         if: ${{ github.ref_name	== 'develop' }}
         run: |
-          export FIX= ${{env.fix}}
+          export FIX=${{env.fix}}
           FIX=$((FIX+1))
           echo $FIX
           echo "fix=$FIX" >> $GITHUB_ENV
