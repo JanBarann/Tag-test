@@ -1,13 +1,13 @@
 name: Tag incrementation
 
 on:
-  push:
-    branches:
-      - main
-      - beta
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - beta
+  
 
 jobs:
   build:
