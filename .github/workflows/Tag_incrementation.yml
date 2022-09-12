@@ -3,13 +3,17 @@ name: Tag incrementation
 on:
   push:
     branches:
-      - main
-      - develop
+      - beta
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
+    env:
+      major_version: 1
+      minor_version: 1
+      fix: 0
+      
     steps:
       - uses: actions/checkout@v3
         with:
@@ -32,7 +36,7 @@ jobs:
           echo "fix=$FIX" >> $GITHUB_ENV
       
       - name: Increase PI release number
-        if: ${{ github.ref_name	== 'main' }}
+        if: ${{ github.head_ref	== 'develop' }}
         run: |
           export MINOR_VERSION=${{env.minor_version}}
           MINOR_VERSION=$((MINOR_VERSION+1))
@@ -41,7 +45,7 @@ jobs:
           echo "fix='0'" >> $GITHUB_ENV
           
       - name: Increase fix number
-        if: ${{ github.ref_name	== 'develop' }}
+        if: ${{ github.head_ref	!= 'develop' }}
         run: |
           export FIX=${{env.fix}}
           FIX=$((FIX+1))
