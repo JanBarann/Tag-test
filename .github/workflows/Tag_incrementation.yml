@@ -38,6 +38,7 @@ jobs:
           MINOR_VERSION=$((MINOR_VERSION+1))
           echo $MINOR_VERSION
           echo "minor_version=$MINOR_VERSION" >> $GITHUB_ENV
+          echo "fix='0'" >> $GITHUB_ENV
           
       - name: Increase fix number
         if: ${{ github.ref_name	== 'develop' }}
@@ -57,9 +58,7 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-          git tag -a ${{env.new_tag}} -m "Version ${{env.new_tag}}"
-          #$git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/JanBarann/Tag-test.git" --follow-tags
-          #$git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/JanBarann/Tag-test.git" --tags     
+          git tag -a ${{env.new_tag}} -m "Version ${{env.new_tag}}"    
           git push --follow-tags
           git push --tags
           
