@@ -67,8 +67,8 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
           git tag -a ${{env.new_tag}} -m "Version ${{env.new_tag}}"    
-          git push --follow-tags
-          git push --tags
+          git push origin HEAD:beta --follow-tags
+          git push origin HEAD:beta --tags
           
           
           
