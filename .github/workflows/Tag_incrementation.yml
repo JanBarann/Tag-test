@@ -38,7 +38,12 @@ jobs:
           export FIX=$(echo $GITHUB_TAG | grep -Eo '\.[0-9]+(\-|$)' | grep -Eo '[0-9]+')
           echo $FIX
           echo "fix=$FIX" >> $GITHUB_ENV
-      
+     
+      - name: Check if PR is made from develop
+        if: ${{ github.head_ref != 'develop' }}
+        run: |
+          exit 0
+     
       - name: Increase PI release number
         if: ${{ github.head_ref	== 'develop' }}
         run: |
