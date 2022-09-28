@@ -3,7 +3,7 @@ name: Tag incrementation
 on:
   pull_request:
     branches:
-      - main
+      - beta
   push:
     branches:
       - beta
