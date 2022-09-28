@@ -1,12 +1,10 @@
 name: Tag incrementation
 
 on:
-  pull_request:
-    branches:
-      - beta
   push:
     branches:
       - beta
+      - develop
   
 
 jobs:
@@ -40,7 +38,7 @@ jobs:
           echo "fix=$FIX" >> $GITHUB_ENV
          
       - name: Increase PI release number
-        if: ${{ github.head_ref	== 'develop' }}
+        if: ${{ github.ref_name	== 'develop' }}
         run: |
           export MINOR_VERSION=${{env.minor_version}}
           MINOR_VERSION=$((MINOR_VERSION+1))
@@ -63,7 +61,7 @@ jobs:
           echo "new_tag=$NEW_TAG" >> $GITHUB_ENV
   
       - name: Deploy new tag
-        if: ${{ github.head_ref == 'develop' || github.ref_name == 'beta' }}  
+        if: ${{ github.ref_name == 'develop' || github.ref_name == 'beta' }}  
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
