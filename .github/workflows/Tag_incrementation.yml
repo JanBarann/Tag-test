@@ -9,7 +9,6 @@ on:
       - main
       - beta
   
-
 jobs:
   build:
     runs-on: ubuntu-latest
