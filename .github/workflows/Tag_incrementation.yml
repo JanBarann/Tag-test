@@ -39,7 +39,7 @@ jobs:
           echo "fix=$FIX" >> $GITHUB_ENV
          
       - name: Increase PI release number
-        if: ${{ github.head_ref	== 'main' }}
+        if: ${{ github.base_ref	== 'main' }}
         run: |
           export MINOR_VERSION=${{env.minor_version}}
           MINOR_VERSION=$((MINOR_VERSION+1))
